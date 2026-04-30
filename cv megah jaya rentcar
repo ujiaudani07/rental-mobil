@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MEGAH JAYA RENTCAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h2 { text-align: center; }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #22c55e;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .total {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🚗 MEGAH JAYA RENTCAR</h2>
+
+  <input type="text" id="nama" placeholder="Nama">
+  <input type="text" id="hp" placeholder="Nomor HP">
+
+  <select id="mobil" onchange="hitung()">
+    <option value="350000">All New Xenia (1 Hari)</option>
+    <option value="350000">All New Avanza (1 Hari)</option>
+    <option value="400000">Toyota Veloz (1 Hari)</option>
+    <option value="400000">Toyota RUSH (1 Hari)</option>
+    <option value="600000">INNOVA REBON (1 Hari)</option>
+    <option value="1200000">Toyota HIACE (1 Hari)</option>
+    <option value="1300000">Toyota FORTUNER (1 Hari)</option>
+    <option value="1300000">PAJERO SPORT (1 Hari)</option>
+  </select>
+
+  <input type="number" id="durasi" placeholder="Durasi (hari)" oninput="hitung()">
+  <input type="date" id="tanggal">
+
+  <div class="total" id="total">Total: Rp 0</div>
+
+  <button onclick="booking()">Booking Sekarang</button>
+</div>
+
+<script>
+function hitung() {
+  let harga = document.getElementById("mobil").value;
+  let durasi = document.getElementById("durasi").value;
+
+  let total = harga * (durasi || 1);
+  document.getElementById("total").innerText =
+    "Total: Rp " + total.toLocaleString();
+}
+
+function booking() {
+  let nama = document.getElementById("nama").value;
+  let hp = document.getElementById("hp").value;
+  let mobil = document.getElementById("mobil").options[
+    document.getElementById("mobil").selectedIndex
+  ].text;
+  let tanggal = document.getElementById("tanggal").value;
+  let durasi = document.getElementById("durasi").value;
+  let total = document.getElementById("total").innerText;
+
+  if (!nama || !hp || !tanggal) {
+    alert("Harap isi data lengkap!");
+    return;
+  }
+
+  let pesan = `Halo CV. MEGAH JAYA RENTCAR
+
+Nama: ${nama}
+HP: ${hp}
+Mobil: ${mobil}
+Tanggal: ${tanggal}
+Durasi: ${durasi} hari
+${total}`;
+
+  let url = "https://wa.me/62822500064?text=" + encodeURIComponent(pesan);
+  window.open(url);
+}
+</script>
+
+</body>
+</html>
